@@ -159,7 +159,7 @@ struct FacilitiesView: View {
 
 
 struct PreferenceGaugeView: View {
-    var area: Location
+    var area: SmokingArea
     var userModel: UserModel
     
     var matchPercentage: Double {
@@ -257,7 +257,7 @@ struct PreferenceGaugeView: View {
         }
     }
     
-    private func calculateMatchPercentage(for area: Location, user: UserModel) -> Double {
+    private func calculateMatchPercentage(for area: SmokingArea, user: UserModel) -> Double {
         var score = 0.0
         var total = 0.0
         
@@ -457,7 +457,7 @@ struct CarouselView: View {
 
 
 #Preview {
-    DetailView(area: Location(
+    DetailView(area: SmokingArea(
         name: "Ecopuff Corner",
         location: "GOP 6",
         latitude: -6.303563,

@@ -57,7 +57,7 @@ struct MapView: View {
     
     UserDefaults.standard.set(false, forKey: SmokingAreaSeeder.preloadKey)
     
-    SmokingArea.seedDataIfNeeded(context: container.mainContext)
+    SmokingAreaSeeder.seedDataIfNeeded(context: container.mainContext)
     
     return MapView()
         .modelContainer(container)
