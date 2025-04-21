@@ -12,6 +12,13 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     private var locationManager: CLLocationManager?
     static let shared = LocationManager()
     @Published var userLocation: CLLocationCoordinate2D?
+    private var manager = CLLocationManager()
+    private var locationCompletion: ((CLLocation?) -> Void)?
+    
+    func requestUserLocation(completion: @escaping (CLLocation?) -> Void){
+        self.locationCompletion = completion
+        manager.requestLocation()
+    }
     
     override private init() {
         super.init()

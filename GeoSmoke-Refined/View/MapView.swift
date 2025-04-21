@@ -16,36 +16,29 @@ struct MapView: View {
     @State private var selectedLocation: SmokingArea?
     
     @ObservedObject private var locationManager = LocationManager.shared
-    @State private var hasCenteredOnUser = false
-    @State private var routeCoordinates: [CLLocationCoordinate2D] = []
+    @State private var showDetail = false
+    
 
     var body: some View {
         Map(position: $cameraPosition, selection: $selectedLocation) {
             UserAnnotation()
-
             ForEach(locations, id: \.self) { location in
                 Marker(location.name,
                        coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
                 .tint(.red)
                 .tag(location)
             }
-
         }
-        .mapStyle(.hybrid(pointsOfInterest: .excludingAll))
+        .mapStyle(.standard(elevation: .realistic, pointsOfInterest: .excludingAll))
         .onAppear {
             locationManager.requestLocationAccess()
             let center = CLLocationCoordinate2D(latitude: -6.301454, longitude: 106.651853)
-//            let center = CLLocationCoordinate2D(latitude: 37.785834, longitude: -122.406417)
             let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-//            cameraPosition = .region(MKCoordinateRegion(center: center, span: span))
-            cameraPosition = .userLocation(followsHeading: true, fallback: MapCameraPosition.automatic)
+            cameraPosition = .region(MKCoordinateRegion(center: center, span: span))
         }
 
-        .sheet(item: $selectedLocation) { location in
+        .fullScreenCover(item: $selectedLocation) { location in
             DetailView(area: location)
-                .presentationDetents([.fraction(2/3)])
-                .presentationBackgroundInteraction(.enabled)
-                .padding(.top, 20)
         }
     }
 }
