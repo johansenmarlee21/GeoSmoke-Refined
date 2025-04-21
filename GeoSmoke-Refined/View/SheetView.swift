@@ -83,13 +83,13 @@ struct BottomModalView: View {
                         selectedArea = area
                     })
                 case .favorite:
-//                    FavoriteView(onSelect: { area in
-//                        selectedArea = area
-//                    })
+                    FavoriteFilterView(onSelect: { area in
+                        selectedArea = area
+                    })
                 case .facility:
-//                    FacilityView(onSelect: { area in
-//                        selectedArea = area
-//                    })
+                    FacilityFilterView(onSelect: { area in
+                        selectedArea = area
+                    })
                 }
             }
             Spacer()
